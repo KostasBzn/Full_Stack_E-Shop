@@ -147,7 +147,7 @@ export const updateUser = async (req, res) => {
     );
 
     if (!updatedUser) {
-      return res.send({ success: false, message: "Usernot found" });
+      return res.send({ success: false, message: "User not found" });
     }
 
     console.log("User updated successfully:", updatedUser);
