@@ -1,7 +1,5 @@
 import { useContext } from "react";
-import Navbar from "../components/Navbar";
-import MainPage from "../components/MainPage";
-import Footer from "../components/Footer";
+
 import { UserContext } from "../context/userContext";
 
 const Home = () => {
