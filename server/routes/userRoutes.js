@@ -5,6 +5,7 @@ import {
   handleSignIn,
   updateUser,
   findUser,
+  emailConfirm,
 } from "../controllers/userControllers.js";
 import auth from "../middleware/user-auth.js";
 import upload from "../middleware/mutlerLocalstorage.js";
@@ -25,6 +26,7 @@ userRoutes.put(
   upload.single("profileImage"),
   updateUser
 );
+userRoutes.post("/emailconfirm/:token", emailConfirm);
 
 //should match the name attribute of the input field in your form where the file is being uploaded
 

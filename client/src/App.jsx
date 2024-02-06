@@ -7,6 +7,7 @@ import SignUp from "./pages/SignUp";
 import { UserContext } from "./context/userContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import EmailConfirm from "./pages/EmailConfirm";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -18,6 +19,7 @@ function App() {
         {user && <Route path="/home" element={<Home />} />}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<SignUp />} />
+        <Route path="/emailconfirm/:token" element={<EmailConfirm />} />
       </Routes>
       {user && <Footer />}
     </>

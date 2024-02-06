@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     image: { type: String },
     address: { type: String },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

@@ -1,7 +1,6 @@
 import { createContext, useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { baseURL } from "../config/api.js";
 import axios from "../config/axios-auth.js";
 
 export const UserContext = createContext();
@@ -11,6 +10,8 @@ const UserContextProvider = ({ children }) => {
   const [updatedUser, setUpdatedUser] = useState();
 
   const navigate = useNavigate();
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const signUp = async (username, email, password) => {
     try {
@@ -24,6 +25,7 @@ const UserContextProvider = ({ children }) => {
         navigate("/signin");
         console.log("New User==>>", response.data.newUser);
       }
+
       //window.location.replace("/signedin");
       //window.location.reload();
     } catch (error) {
@@ -38,8 +40,11 @@ const UserContextProvider = ({ children }) => {
         password,
       });
       localStorage.setItem("token", response.data.token);
-      setUser(response.data.user);
-      navigate("/home");
+      if (response.data.success) {
+        setUser(response.data.user);
+        navigate("/home");
+      }
+
       //window.location.replace("/home");
     } catch (error) {
       console.error("Error", error);
