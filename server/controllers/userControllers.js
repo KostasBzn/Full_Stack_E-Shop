@@ -81,7 +81,7 @@ export const loggedUser = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
-
+//Mallon tha to sviso
 export const updateUserProfilePicture = async (req, res) => {
   const { userId } = req.params;
   const { filename } = req.file;
@@ -161,7 +161,7 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
+//email confirmation
 export const emailConfirm = async (req, res) => {
   try {
     const token = jwt.verify(req.params.token, process.env.JWT_SECTER_KEY);

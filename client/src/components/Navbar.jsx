@@ -18,13 +18,13 @@ const Navbar = () => {
       <nav className="bg-customColor1 flex justify-between items-center px-6 py-3">
         <div className="flex gap-5 items-center">
           <button
-            className="rounded-full overflow-hidden"
+            className="rounded-full overflow-hidden "
             onClick={toggleDropdown}
           >
             <img
-              src=""
+              src="../public/vite.svg"
               alt="profpic"
-              className="w-10 h-10 object-cover"
+              className="w-12 h-12 bg-gray-300 object-cover"
               style={{ borderRadius: "50%" }}
             />
           </button>
