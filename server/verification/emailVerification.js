@@ -29,5 +29,5 @@ export default async function main(token, email) {
 
   //       Or you can use the "preview-email" npm package to preview emails locally in browsers and iOS Simulator
   //       <https://github.com/forwardemail/preview-email>
-  //
+  // http://localhost:5173/emailconfirm/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWMyOGE5NjZiZjVjNTI0Y2IwMmRiYWIiLCJpYXQiOjE3MDcyNDgyNzgsImV4cCI6MTcwNzMzNDY3OH0.b1XLnhQrOxfCKzUtBGneyBDGE_k2cpOPQi1ZomsaHcE
 }

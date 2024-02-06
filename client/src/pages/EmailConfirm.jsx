@@ -15,7 +15,7 @@ export default function EmailConfirm() {
         );
         //console.log("🚀 ~ response:", response);
 
-        if (response.data.success) navigate("/");
+        if (response.data.success) navigate("/confirmeduser");
       };
 
       fetchData();

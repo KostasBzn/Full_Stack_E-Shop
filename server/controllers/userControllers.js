@@ -53,11 +53,11 @@ export const handleSignIn = async (req, res) => {
     if (!isMatched || !user)
       return res.status(400).send("Wrong username or password");
 
-    /* if (!user.verified)
+    if (!user.verified)
       return res.status(400).send({
         success: false,
         error: "Email is not verified",
-      }); */
+      });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
       expiresIn: "1d",
