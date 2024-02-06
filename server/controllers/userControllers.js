@@ -1,12 +1,21 @@
 import User from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { registerValidator } from "../validator/user-validator.js";
 
 //Register user
 export const handleRegister = async (req, res) => {
   try {
     const saltRounds = 10;
-    const { username, email, password } = req.body;
+    const { error, value } = registerValidator(req.body);
+
+    if (error) {
+      return res.status(400).json({ message: error.details });
+    }
+
+    const { username, email, password } = value;
+    console.log("Value=>>", value);
+
     const hashedpassword = await bcrypt.hash(password, saltRounds);
     const newUser = new User({
       username,
