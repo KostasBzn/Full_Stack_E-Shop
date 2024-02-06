@@ -2,16 +2,16 @@ import User from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+//Register user
 export const handleRegister = async (req, res) => {
   try {
     const saltRounds = 10;
-    const { username, email, password, address } = req.body;
+    const { username, email, password } = req.body;
     const hashedpassword = await bcrypt.hash(password, saltRounds);
     const newUser = new User({
       username,
       email,
       password: hashedpassword,
-      address,
     });
     await newUser.save();
     res.send({ success: true, newUser });
@@ -21,7 +21,7 @@ export const handleRegister = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
+//Sign in user
 export const handleSignIn = async (req, res) => {
   try {
     const { password, email } = req.body;
@@ -44,7 +44,8 @@ export const handleSignIn = async (req, res) => {
   }
 };
 
-export const LoggedUser = async (req, res) => {
+//logged user
+export const loggedUser = async (req, res) => {
   try {
     const userId = req.user.userId;
     // const userId = req.params.id;
@@ -52,16 +53,6 @@ export const LoggedUser = async (req, res) => {
     res.send({ success: true, user });
   } catch (error) {
     console.log("Error logged user:", error.message);
-    res.status(500).send({ success: false, error: error.message });
-  }
-};
-
-export const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find();
-    res.send({ success: true, users });
-  } catch (error) {
-    console.error("Error fetching the users", error.message);
     res.status(500).send({ success: false, error: error.message });
   }
 };
@@ -91,6 +82,7 @@ export const updateUserProfilePicture = async (req, res) => {
   }
 };
 
+//Delete profile
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;
 
@@ -98,6 +90,25 @@ export const deleteUser = async (req, res) => {
   res.json({ message: "User deleted successfully!" });
 };
 
+//find a user
+export const findUser = async (req, res) => {
+  try {
+    const userId = req.params.todoId;
+
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      return res.send({ success: false, message: "User not found" });
+    }
+
+    res.send({ success: true, user });
+  } catch (error) {
+    console.error("Error finding the user", error.message);
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+//Update a user
 export const updateUser = async (req, res) => {
   const { userId } = req.params;
 
@@ -115,7 +126,7 @@ export const updateUser = async (req, res) => {
     console.log("User updated successfully:", updatedUser);
     res.send({
       success: true,
-      todo: updatedUser,
+      user: updatedUser,
       message: "Updated successfully",
     });
   } catch (error) {
