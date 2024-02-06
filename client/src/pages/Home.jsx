@@ -9,6 +9,7 @@ const Home = () => {
     <>
       <div>This is the home</div>
       {user ? <p>Hello {user.username}</p> : <p>loading user..</p>}
+      <div style={{ height: "350px" }}></div>
     </>
   );
 };

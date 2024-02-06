@@ -15,7 +15,7 @@ function App() {
     <>
       {user && <Navbar />}
       <Routes>
-        <Route path="/home" element={<Home />} />
+        {user && <Route path="/home" element={<Home />} />}
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<SignUp />} />
       </Routes>
