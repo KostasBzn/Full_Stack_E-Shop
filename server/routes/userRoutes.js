@@ -7,6 +7,7 @@ import {
   findUser,
 } from "../controllers/userControllers.js";
 import auth from "../middleware/user-auth.js";
+import upload from "../middleware/mutlerLocalstorage.js";
 
 const userRoutes = express.Router();
 
@@ -18,6 +19,13 @@ userRoutes.post("/register", handleRegister);
 userRoutes.post("/signin", handleSignIn);
 userRoutes.get("/loggeduser", auth, loggedUser);
 userRoutes.get("/:userId", findUser);
-userRoutes.put("/updateuser/:userId", auth, updateUser);
+userRoutes.put(
+  "/updateuser/:userId",
+  auth,
+  upload.single("profileImage"),
+  updateUser
+);
+
+//should match the name attribute of the input field in your form where the file is being uploaded
 
 export default userRoutes;

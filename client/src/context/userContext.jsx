@@ -69,7 +69,7 @@ const UserContextProvider = ({ children }) => {
   const updateUser = async (userId, updatedData) => {
     try {
       const response = await axios.put(
-        baseURL + `/todos/edittodo/${userId}`,
+        baseURL + `/users/updateuser/${userId}`,
         updatedData
       );
 

@@ -122,6 +122,8 @@ export const updateUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
+    if (req.file) req.body.image = req.file.filename;
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { $set: req.body },
@@ -144,4 +146,4 @@ export const updateUser = async (req, res) => {
   }
 };
 
-// node eimailer, joi
+// node eimailer
