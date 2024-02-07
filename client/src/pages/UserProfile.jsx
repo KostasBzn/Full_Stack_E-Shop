@@ -28,9 +28,9 @@ const UserProfile = () => {
     <div className="container flex justify-between" style={{ height: "500px" }}>
       <div className="w-1/2 p-4">
         <h2 className="text-xl font-bold mb-4 text-center">
-          {user ? `${user.username} Information` : "User Information"}
+          Profile informations
         </h2>
-        <p className="mb-4">Add your profile picture here:</p>
+        <p className="mb-4 font-bold text-lg">Add your profile picture here:</p>
         <form onSubmit={handleUpload}>
           <input
             type="file"
@@ -42,16 +42,16 @@ const UserProfile = () => {
             Upload
           </button>
         </form>
-        <hr className="my-8 mb-20" />
+        <hr className="my-8 mb-20 mt-16 border-black" />
         <div className=" pb-4">
           <p className="font-bold text-lg">
-            Add your shipping information here:
+            Edit your shipping information here:
           </p>
           <button
             className="mt-4 bg-customColor  text-white px-4 py-2 rounded"
             onClick={handleAddAddress}
           >
-            Add Address
+            Edit Address
           </button>
         </div>
       </div>

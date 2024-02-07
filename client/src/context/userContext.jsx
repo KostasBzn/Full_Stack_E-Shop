@@ -82,7 +82,7 @@ const UserContextProvider = ({ children }) => {
       const response = await axios.get(baseURL + `/users/${userId}`);
 
       if (response.data.success) {
-        setSelectedUser(response.data.user);
+        setUser(response.data.user);
         console.log("User found successfully!", response.data.user);
       } else {
         console.error("User not found", error);

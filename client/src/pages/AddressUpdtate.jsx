@@ -22,7 +22,7 @@ const AddressUpdate = () => {
       setPostalCode(user.address.postalCode);
       setCountry(user.address.country);
     }
-  }, []);
+  }, [user]);
 
   const handleFirstNameChange = (e) => {
     setFirstName(e.target.value);
@@ -57,9 +57,10 @@ const AddressUpdate = () => {
       postalCode: postalCode,
       country: country,
     };
-    console.log(updatedData);
+
     updateUser(user._id, { address: updatedData });
-    navigate("/userprofile");
+    window.location.replace("/userprofile");
+    //navigate("/userprofile");
   };
 
   return (
@@ -74,6 +75,7 @@ const AddressUpdate = () => {
               </label>
               <input
                 type="text"
+                value={firstName}
                 onChange={handleFirstNameChange}
                 className="mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               />
@@ -84,6 +86,7 @@ const AddressUpdate = () => {
               </label>
               <input
                 type="text"
+                value={lastName}
                 onChange={handleLastNameChange}
                 className="mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               />
@@ -94,6 +97,7 @@ const AddressUpdate = () => {
               </label>
               <input
                 type="text"
+                value={street}
                 onChange={handleStreetChange}
                 className="mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               />
@@ -105,6 +109,7 @@ const AddressUpdate = () => {
                 </label>
                 <input
                   type="text"
+                  value={city}
                   onChange={handleCityChange}
                   className="mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -115,6 +120,7 @@ const AddressUpdate = () => {
                 </label>
                 <input
                   type="text"
+                  value={postalCode}
                   onChange={handlePostalCodeChange}
                   className="mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
                 />
@@ -126,6 +132,7 @@ const AddressUpdate = () => {
               </label>
               <input
                 type="text"
+                value={country}
                 onChange={handleCountryChange}
                 className="mt-1 p-2 block w-full border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               />
