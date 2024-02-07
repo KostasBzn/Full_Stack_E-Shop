@@ -1,6 +1,7 @@
 import User from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 import { registerValidator } from "../validator/user-validator.js";
 import emailVerification from "../verification/emailVerification.js";
 
@@ -93,8 +94,33 @@ export const loggedUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;
 
-  await User.findByIdAndDelete(userId);
-  res.json({ message: "User deleted successfully!" });
+  try {
+    const findUser = await User.findById(userId);
+    if (findUser.image) {
+      const filePath = "uploads/prfim/" + findUser.image;
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error("Error deleting file:", err);
+          return;
+        }
+        console.log("File deleted successfully");
+      });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).send({
+        success: false,
+        error: "User not found.",
+      });
+    }
+
+    res.send({ message: "User deleted successfully!" });
+  } catch (error) {
+    console.log("Error deleting the user:", error.message);
+    res.status(500).send({ success: false, error: error.message });
+  }
 };
 
 //find a user

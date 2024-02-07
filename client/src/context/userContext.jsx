@@ -112,6 +112,17 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const deleteUser = async (userId) => {
+    try {
+      const response = await axios.delete(baseURL + `/users/delete/${userId}`);
+      localStorage.removeItem("token");
+      navigate("/");
+      console.log("User deleted:", response.data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const loggedUser = async () => {
       const token = localStorage.getItem("token");
@@ -140,8 +151,8 @@ const UserContextProvider = ({ children }) => {
         signUp,
         signIn,
         logout,
-        findUser,
         updateUser,
+        deleteUser,
       }}
     >
       {children}

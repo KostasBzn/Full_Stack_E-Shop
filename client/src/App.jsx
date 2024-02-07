@@ -11,6 +11,7 @@ import EmailConfirm from "./pages/EmailConfirm";
 import ConfirmedUser from "./pages/ConfirmedUser";
 import UserProfile from "./pages/UserProfile";
 import AddressUpdate from "./pages/AddressUpdtate";
+import DeleteAccForm from "./pages/DeleteAccountForm";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -26,6 +27,7 @@ function App() {
         <Route path="/confirmeduser" element={<ConfirmedUser />} />
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/address" element={<AddressUpdate />} />
+        <Route path="/deleteuser" element={<DeleteAccForm />} />
       </Routes>
       {user && <Footer />}
     </>

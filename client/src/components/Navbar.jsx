@@ -24,7 +24,7 @@ const Navbar = () => {
             className="rounded-full overflow-hidden "
             onClick={toggleDropdown}
           >
-            {user ? (
+            {user.image ? (
               <img
                 src={baseURL + "/uploads/prfim/" + user.image}
                 className="w-12 h-12 bg-gray-300 object-cover"

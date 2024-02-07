@@ -7,6 +7,7 @@ import {
   updateUser,
   findUser,
   emailConfirm,
+  deleteUser,
 } from "../controllers/userControllers.js";
 import auth from "../middleware/user-auth.js";
 import upload from "../middleware/mutlerLocalstorage.js";
@@ -27,15 +28,15 @@ userRoutes.post(
 );
 userRoutes.post("/signin", handleSignIn);
 userRoutes.get("/loggeduser", auth, loggedUser);
-userRoutes.get("/:userId", findUser);
+userRoutes.get("/:userId", findUser); //de xreiazetai
 userRoutes.put(
   "/updateuser/:userId",
-  auth,
   //should match the name attribute of the input field in your form where the file is being uploaded
   upload.single("profileImage"),
   updateUser
 );
 
 userRoutes.post("/emailconfirm/:token", emailConfirm);
+userRoutes.delete("/delete/:userId", auth, deleteUser);
 
 export default userRoutes;
