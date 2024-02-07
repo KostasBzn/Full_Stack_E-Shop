@@ -146,7 +146,20 @@ export const updateUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    if (req.file) req.body.image = req.file.filename;
+    if (req.file) {
+      const findUser = await User.findById(userId);
+      if (findUser.image) {
+        const filePath = "uploads/prfim/" + findUser.image;
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error("Error deleting file:", err);
+            return;
+          }
+          console.log("File deleted successfully");
+        });
+      }
+      req.body.image = req.file.filename;
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,

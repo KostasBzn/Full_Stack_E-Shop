@@ -18,7 +18,7 @@ const UserProfile = () => {
     const formData = new FormData();
     formData.append("profileImage", file);
     updateUser(user._id, formData);
-    window.location.replace("/userprofile");
+    //window.location.replace("/userprofile");
   };
 
   const handleAddAddress = () => {
