@@ -6,7 +6,7 @@ export default {
       colors: {
         customColor: "#DF7A5E",
         customColor1: "#3C405B",
-        custimColor1: "#82B29A",
+        customColor2: "#82B29A",
         backgroundColor: "#f4f1de",
 
         "customColor-dark": "#A0523D", // A darker shade for hover effect, adjust as needed
