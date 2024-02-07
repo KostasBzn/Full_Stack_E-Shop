@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
 
 const SignUp = () => {
-  const { signUp } = useContext(UserContext);
+  const { signUp, errors } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -51,7 +51,7 @@ const SignUp = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-1">
               <label
                 className="block text-sm font-bold mb-2 text-left"
                 htmlFor="password"
@@ -67,9 +67,21 @@ const SignUp = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
+            <div className="flex items-left">
+              {errors ? (
+                <ul className="text-red-500 list-none list-inside text-left">
+                  {errors.map((err, i) => (
+                    <li className="py-1 text-sm" key={i}>
+                      - {err?.message}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+
             <div className="flex items-center justify-center">
               <button
-                className="bg-customColor hover:bg-customColor text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-customColor mt-2 hover:bg-customColor text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
               >
                 Sign up now

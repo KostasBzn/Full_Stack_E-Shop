@@ -23,11 +23,11 @@ userRoutes.get("/:userId", findUser);
 userRoutes.put(
   "/updateuser/:userId",
   auth,
+  //should match the name attribute of the input field in your form where the file is being uploaded
   upload.single("profileImage"),
   updateUser
 );
-userRoutes.post("/emailconfirm/:token", emailConfirm);
 
-//should match the name attribute of the input field in your form where the file is being uploaded
+userRoutes.post("/emailconfirm/:token", emailConfirm);
 
 export default userRoutes;

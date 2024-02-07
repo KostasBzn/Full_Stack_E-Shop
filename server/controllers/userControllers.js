@@ -46,12 +46,19 @@ export const handleSignIn = async (req, res) => {
     const { password, email } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(404).send("User not found");
+    if (!user)
+      return res.status(400).send({
+        success: false,
+        error: "User not found",
+      });
 
     const isMatched = await bcrypt.compare(password, user.password);
 
     if (!isMatched || !user)
-      return res.status(400).send("Wrong username or password");
+      return res.status(400).send({
+        success: false,
+        error: "Email or password is wrong",
+      });
 
     if (!user.verified)
       return res.status(400).send({

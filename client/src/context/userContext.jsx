@@ -8,12 +8,14 @@ export const UserContext = createContext();
 const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [updatedUser, setUpdatedUser] = useState();
+  const [errors, setErrors] = useState(null);
 
   const navigate = useNavigate();
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const signUp = async (username, email, password) => {
+    setErrors(null);
     try {
       const response = await axios.post(baseURL + `/users/register`, {
         username,
@@ -25,15 +27,26 @@ const UserContextProvider = ({ children }) => {
         navigate("/signin");
         console.log("New User==>>", response.data.newUser);
       }
-
+      setErrors(null);
       //window.location.replace("/signedin");
       //window.location.reload();
     } catch (error) {
       console.error("Error", error);
+      if (Array.isArray(error.response.data.message)) {
+        setErrors(error.response.data.message);
+      } else {
+        const error = [
+          {
+            message: error.response.data.message,
+          },
+        ];
+        setErrors(error);
+      }
     }
   };
 
   const signIn = async (email, password) => {
+    setErrors(null);
     try {
       const response = await axios.post(baseURL + `/users/signin`, {
         email,
@@ -44,10 +57,17 @@ const UserContextProvider = ({ children }) => {
         setUser(response.data.user);
         navigate("/home");
       }
-
+      setErrors(null);
       //window.location.replace("/home");
     } catch (error) {
       console.error("Error", error);
+
+      const err = [
+        {
+          message: error.response.data.error,
+        },
+      ];
+      setErrors(err);
     }
   };
 
@@ -115,6 +135,7 @@ const UserContextProvider = ({ children }) => {
       value={{
         user,
         updatedUser,
+        errors,
         signUp,
         signIn,
         logout,
