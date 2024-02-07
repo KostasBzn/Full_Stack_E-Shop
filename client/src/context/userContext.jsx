@@ -76,6 +76,7 @@ const UserContextProvider = ({ children }) => {
     window.location.replace("/");
   };
 
+  //den to xreiazomai auto na svistei sto telos
   const findUser = async (userId) => {
     try {
       const response = await axios.get(baseURL + `/users/${userId}`);

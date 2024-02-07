@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import EmailConfirm from "./pages/EmailConfirm";
 import ConfirmedUser from "./pages/ConfirmedUser";
+import UserProfile from "./pages/UserProfile";
+import AddressUpdate from "./pages/AddressUpdtate";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -22,6 +24,8 @@ function App() {
         <Route path="/" element={<SignUp />} />
         <Route path="/emailconfirm/:token" element={<EmailConfirm />} />
         <Route path="/confirmeduser" element={<ConfirmedUser />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/address" element={<AddressUpdate />} />
       </Routes>
       {user && <Footer />}
     </>

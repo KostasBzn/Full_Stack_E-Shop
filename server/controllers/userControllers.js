@@ -63,7 +63,7 @@ export const handleSignIn = async (req, res) => {
     if (!user.verified)
       return res.status(400).send({
         success: false,
-        error: "Email is not verified",
+        error: "Email is not verified, please check your email",
       });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
@@ -86,31 +86,6 @@ export const loggedUser = async (req, res) => {
   } catch (error) {
     console.log("Error logged user:", error.message);
     res.status(500).send({ success: false, error: error.message });
-  }
-};
-//Mallon tha to sviso
-export const updateUserProfilePicture = async (req, res) => {
-  const { userId } = req.params;
-  const { filename } = req.file;
-
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { image: filename },
-      { new: true }
-    );
-    if (!updatedUser) {
-      return res.send({ success: false, message: "User not found" });
-    }
-
-    res.send({
-      success: true,
-      user: updatedUser,
-      message: "Updated successfully",
-    });
-  } catch (error) {
-    console.error("Error updating profile picture:", error.message);
-    res.status(500).json({ success: false, error: error.message });
   }
 };
 
@@ -188,5 +163,3 @@ export const emailConfirm = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
-
-// node eimailer
