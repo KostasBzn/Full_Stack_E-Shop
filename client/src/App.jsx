@@ -14,14 +14,16 @@ import AddressUpdate from "./pages/AddressUpdtate";
 import DeleteAccForm from "./pages/DeleteAccountForm";
 import ForgotPass from "./pages/ForgotPass";
 import ChangePass from "./pages/ChangePass";
+import AdminHome from "./pages/Admin/AdminHome";
 
 function App() {
   const { user } = useContext(UserContext);
+  const admin = "null";
   const navigate = useNavigate();
 
   return (
     <>
-      {user && <Navbar />}
+      {user && !admin && <Navbar />}
       <Routes>
         {user && <Route path="/home" element={<Home />} />}
         <Route path="/signin" element={<SignIn />} />
@@ -33,8 +35,9 @@ function App() {
         <Route path="/deleteuser" element={<DeleteAccForm />} />
         <Route path="/forgotpass" element={<ForgotPass />} />
         <Route path="/changepass/:token" element={<ChangePass />} />
+        <Route path="/admin" element={<AdminHome />} />
       </Routes>
-      {user && <Footer />}
+      {user && !admin && <Footer />}
     </>
   );
 }
