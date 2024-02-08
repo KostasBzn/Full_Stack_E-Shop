@@ -123,6 +123,51 @@ const UserContextProvider = ({ children }) => {
     }
   };
 
+  const forgotPass = async (email) => {
+    try {
+      const response = await axios.post(baseURL + `/users/forgotpass`, {
+        email,
+      });
+
+      if (response.data.success) {
+        setErrors(null);
+        alert(
+          "Check your email to find the next step, to change your password"
+        );
+        navigate("/signin");
+      }
+    } catch (error) {
+      console.error("Error finding the user", error.message);
+      const err = [
+        {
+          message: error.response.data.error,
+        },
+      ];
+      setErrors(err);
+    }
+  };
+
+  const changePass = async (password, token) => {
+    try {
+      const response = await axios.patch(baseURL + "/users/changepass", {
+        password,
+        token,
+      });
+
+      if (response.data.success) {
+        alert(
+          "Your password changed successfully. Soon you will be redirected to the login page"
+        );
+
+        setTimeout(() => {
+          navigate("/signin"); // redirect to login
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error changin the password", error);
+    }
+  };
+
   useEffect(() => {
     const loggedUser = async () => {
       const token = localStorage.getItem("token");
@@ -153,6 +198,8 @@ const UserContextProvider = ({ children }) => {
         logout,
         updateUser,
         deleteUser,
+        forgotPass,
+        changePass,
       }}
     >
       {children}

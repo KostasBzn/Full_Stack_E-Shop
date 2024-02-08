@@ -8,6 +8,8 @@ import {
   findUser,
   emailConfirm,
   deleteUser,
+  forgotPass,
+  changePass,
 } from "../controllers/userControllers.js";
 import auth from "../middleware/user-auth.js";
 import upload from "../middleware/mutlerLocalstorage.js";
@@ -38,5 +40,7 @@ userRoutes.put(
 
 userRoutes.post("/emailconfirm/:token", emailConfirm);
 userRoutes.delete("/delete/:userId", auth, deleteUser);
+userRoutes.post("/forgotpass", forgotPass);
+userRoutes.patch("/changePass", changePass);
 
 export default userRoutes;

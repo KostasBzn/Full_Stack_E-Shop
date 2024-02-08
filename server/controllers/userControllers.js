@@ -3,7 +3,10 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import fs from "fs";
 import { registerValidator } from "../validator/user-validator.js";
-import emailVerification from "../verification/emailVerification.js";
+import {
+  emailVerification,
+  changePassVerification,
+} from "../verification/emailVerification.js";
 
 //Register user
 export const handleRegister = async (req, res) => {
@@ -198,6 +201,57 @@ export const emailConfirm = async (req, res) => {
     res.send({ success: true });
   } catch (error) {
     console.log("Error in email confirmation:", error.message);
+
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+export const forgotPass = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      $or: [{ email: req.body.email }, { username: req.body.username }],
+    });
+    if (!user)
+      return res.status(400).send({
+        success: false,
+        error: "User not found, please type the correct email",
+      });
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
+      expiresIn: "1h",
+    }); // generate a one hour validity token
+    console.log("token:", token);
+
+    changePassVerification(token, user.email);
+
+    res.send({ success: true });
+  } catch (error) {
+    console.log("Error in forgotPass:", error.message);
+
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+export const changePass = async (req, res) => {
+  try {
+    const token = jwt.verify(req.body.token, process.env.JWT_SECTER_KEY);
+
+    const saltRounds = 10;
+
+    const hashedpassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    //req.body.password = hashedpassword;
+
+    const user = await User.findByIdAndUpdate(
+      token.id,
+      { password: hashedpassword },
+      { new: true }
+    );
+    console.log("🚀 ~ user change pass:", user);
+
+    res.send({ success: true });
+  } catch (error) {
+    console.log("🚀 ~ error in changePass:", error.message);
 
     res.status(500).send({ success: false, error: error.message });
   }

@@ -72,7 +72,7 @@ const SignIn = () => {
               </button>
               <a
                 className="text-sm  text-customColor hover:text-customColor"
-                href="#"
+                href="/forgotpass"
               >
                 Forgot password?
               </a>

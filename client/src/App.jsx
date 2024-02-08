@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -12,9 +12,12 @@ import ConfirmedUser from "./pages/ConfirmedUser";
 import UserProfile from "./pages/UserProfile";
 import AddressUpdate from "./pages/AddressUpdtate";
 import DeleteAccForm from "./pages/DeleteAccountForm";
+import ForgotPass from "./pages/ForgotPass";
+import ChangePass from "./pages/ChangePass";
 
 function App() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -28,6 +31,8 @@ function App() {
         <Route path="/userprofile" element={<UserProfile />} />
         <Route path="/address" element={<AddressUpdate />} />
         <Route path="/deleteuser" element={<DeleteAccForm />} />
+        <Route path="/forgotpass" element={<ForgotPass />} />
+        <Route path="/changepass/:token" element={<ChangePass />} />
       </Routes>
       {user && <Footer />}
     </>
