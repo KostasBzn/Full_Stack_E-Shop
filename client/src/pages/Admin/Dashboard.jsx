@@ -16,7 +16,7 @@ const Dashboard = () => {
     setTitle(e.target.value);
   };
 
-  const handleDescriptioneChange = (e) => {
+  const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
 
@@ -54,9 +54,10 @@ const Dashboard = () => {
     addProduct(formData);
   };
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+    <div className="max-w-md mt-10 mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <h2 className="text-xl font-bold mb-4">Add Product</h2>
       <form onSubmit={handleSubmit}>
+        {/* Make the form wider in general but not the inputs */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -83,7 +84,7 @@ const Dashboard = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             name="description"
             type="text"
-            onChange={handleDescriptioneChange}
+            onChange={handleDescriptionChange}
             required
           />
         </div>
@@ -99,33 +100,44 @@ const Dashboard = () => {
             name="fullDescription"
             onChange={handleFullDescriptionChange}
             required
+            style={{ height: "200px" }} // Make the textarea have a fixed height around 200px
           />
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="price"
-          >
-            Price:
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            name="price"
-            type="text"
-            onChange={handlePriceChange}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Image URL:
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            name="productImage"
-            onChange={handleImageChange}
-            type="file"
-          />
+        <div className="flex mb-4 justify-between">
+          <div className="w-1/2 mr-2">
+            {" "}
+            {/* Make this input with less width */}
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="price"
+            >
+              Price:
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="price"
+              type="text"
+              onChange={handlePriceChange}
+              required
+            />
+          </div>
+          <div className="w-1/2 ml-2">
+            {" "}
+            {/* Put the quantity next to it */}
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="quantity"
+            >
+              Quantity:
+            </label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              name="quantity"
+              type="text"
+              onChange={handleQuantityChange}
+              required
+            />
+          </div>
         </div>
         <div className="mb-4">
           <label
@@ -147,24 +159,9 @@ const Dashboard = () => {
             <option value="bikes">Bikes</option>
           </select>
         </div>
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="quantity"
-          >
-            Quantity:
-          </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            name="quantity"
-            type="text"
-            onChange={handleQuantityChange}
-            required
-          />
-        </div>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-customColor hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Add Product
