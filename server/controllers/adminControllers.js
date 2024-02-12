@@ -47,7 +47,7 @@ export const handleSignInAdmin = async (req, res) => {
     if (!isMatched || !admin)
       return res.status(400).send({
         success: false,
-        error: "Email or password is wrong",
+        error: "Username or password is wrong",
       });
 
     const token = jwt.sign({ adminId: admin._id }, process.env.JWT_SECTER_KEY, {

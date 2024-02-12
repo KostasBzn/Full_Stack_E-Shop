@@ -1,6 +1,6 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
+const profileImageStorage = multer.diskStorage({
   destination: function (req, file, callback) {
     console.log("multer localstorage: destination: file:", file);
     callback(null, "uploads/prfim");
@@ -12,6 +12,20 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const profileImageUpload = multer({ profileImageStorage });
 
-export default upload;
+const productImageStorage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    console.log("multer localstorage: destination: file:", file);
+    callback(null, "uploads/prdim");
+    //The path that the files will be stored
+  },
+  filename: function (req, file, callback) {
+    const uniqueSuffix = Date.now();
+    callback(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
+
+const productImageUpload = multer({ productImageStorage });
+
+export { productImageUpload, profileImageUpload };

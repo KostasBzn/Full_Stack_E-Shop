@@ -12,7 +12,7 @@ import {
   changePass,
 } from "../controllers/userControllers.js";
 import auth from "../middleware/user-auth.js";
-import upload from "../middleware/mutlerLocalstorage.js";
+import { profileImageUpload } from "../middleware/mutlerLocalstorage.js";
 
 const userRoutes = express.Router();
 
@@ -34,7 +34,7 @@ userRoutes.get("/:userId", findUser); //de xreiazetai
 userRoutes.put(
   "/updateuser/:userId",
   //should match the name attribute of the input field in your form where the file is being uploaded
-  upload.single("profileImage"),
+  profileImageUpload.single("profileImage"),
   updateUser
 );
 

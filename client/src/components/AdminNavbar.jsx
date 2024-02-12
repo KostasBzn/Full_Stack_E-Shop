@@ -35,7 +35,7 @@ const AdminNavbar = () => {
         onClick={handleLogout}
         className="bg-transparent font-bold text-white px-4 py-2 "
       >
-        Logout <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Logout <i className="fa-solid fa-arrow-right-from-bracket"></i>
       </button>
     </nav>
   );
