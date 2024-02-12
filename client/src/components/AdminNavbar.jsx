@@ -25,13 +25,6 @@ const AdminNavbar = () => {
 
   return (
     <nav className="bg-gray-800 text-white flex justify-between items-center px-4 h-16">
-      <div>
-        {admin ? (
-          <p>Welcome {admin.username}</p>
-        ) : (
-          <p>There is no admin logged</p>
-        )}
-      </div>
       <ul className="flex gap-10">
         <li>
           <Link to="/admin/dashboard" className="hover:text-gray-300">
@@ -162,12 +155,23 @@ const AdminNavbar = () => {
           </div>
         )}
       </div>
-      <button
-        onClick={handleLogout}
-        className="bg-transparent font-bold text-white px-4 py-2"
-      >
-        Logout <i className="fa-solid fa-arrow-right-from-bracket"></i>
-      </button>
+      <div className="flex gap-6">
+        <div className="flex  items-center">
+          {admin ? (
+            <p>
+              <b>Admin:</b> {admin.username}
+            </p>
+          ) : (
+            <p>There is no admin logged</p>
+          )}
+        </div>
+        <button
+          onClick={handleLogout}
+          className="bg-transparent font-bold text-white px-4 py-2"
+        >
+          Logout&nbsp; <i className="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
     </nav>
   );
 };

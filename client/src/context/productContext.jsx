@@ -66,12 +66,12 @@ const ProductContextProvider = ({ children }) => {
 
       if (response.data.success) {
         setAllProducts(response.data.products);
-        console.log("Products found successfully!", response.data.products);
+        console.log("Products found by category", response.data.products);
       } else {
-        console.error("Products not found");
+        console.error("Products not found by category");
       }
     } catch (error) {
-      console.error("Error finding the products", error.message);
+      console.error("Error finding the products by category", error.message);
     }
   };
 
