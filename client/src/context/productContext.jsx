@@ -57,6 +57,7 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  //filter product by category
   const filterProductsByCategory = async (selectedCategory) => {
     try {
       const response = await axios.get(
@@ -64,7 +65,7 @@ const ProductContextProvider = ({ children }) => {
       );
 
       if (response.data.success) {
-        setSelectedProduct(response.data.products);
+        setAllProducts(response.data.products);
         console.log("Products found successfully!", response.data.products);
       } else {
         console.error("Products not found");
