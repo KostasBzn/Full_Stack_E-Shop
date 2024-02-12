@@ -1,19 +1,21 @@
 import Product from "../models/productSchema.js";
 import fs from "fs";
 
-//Register user
+//Add Product
 export const addProduct = async (req, res) => {
   try {
     const { title, description, price, image, category, quantity } = req.body;
 
     if (req.file) req.body.image = req.file.filename;
+
     const newProduct = new Product(req.body);
+    console.log("NewProduct==>>", newProduct);
     await newProduct.save();
 
     res.send({ success: true, newProduct });
     console.log("New product created successfully:", newProduct);
   } catch (error) {
-    console.error("Error creating the product");
+    console.error("Error creating the product", error);
     res.status(500).send({ success: false, error: error.message });
   }
 };

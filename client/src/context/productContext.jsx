@@ -17,7 +17,7 @@ const ProductContextProvider = ({ children }) => {
       const response = await axios.post(baseURL + `/products/add`, formData);
 
       if (response.data.success) {
-        console.log("New User==>>", response.data.newUser);
+        console.log("New Product==>>", response.data.newProduct);
       }
       setErrors(null);
       //window.location.replace("/signedin");
@@ -74,8 +74,8 @@ const ProductContextProvider = ({ children }) => {
       try {
         const response = await axios.get(baseURL + `/products/getall`);
 
-        setAllProducts(response.data);
-        console.log("fetch all products:", response.data);
+        setAllProducts(response.data, allProducts);
+        console.log("fetch all products:", response.data.allProducts);
       } catch (error) {
         console.error("Error fetching the products", error);
       }

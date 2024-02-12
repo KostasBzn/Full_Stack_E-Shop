@@ -12,7 +12,7 @@ const profileImageStorage = multer.diskStorage({
   },
 });
 
-const profileImageUpload = multer({ profileImageStorage });
+const profileImageUpload = multer({ storage: profileImageStorage });
 
 const productImageStorage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -26,6 +26,6 @@ const productImageStorage = multer.diskStorage({
   },
 });
 
-const productImageUpload = multer({ productImageStorage });
+const productImageUpload = multer({ storage: productImageStorage });
 
 export { productImageUpload, profileImageUpload };

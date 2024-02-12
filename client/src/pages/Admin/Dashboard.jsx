@@ -10,7 +10,7 @@ const Dashboard = () => {
   const [category, setCategory] = useState("");
   const [quantity, setQuantity] = useState("");
 
-  const { allProducts } = useContext(ProductContext);
+  const { addProduct, errors } = useContext(ProductContext);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -42,7 +42,16 @@ const Dashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Hello");
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("fullDescription", fullDescription);
+    formData.append("price", price);
+    formData.append("productImage", image);
+    formData.append("category", category);
+    formData.append("quantity", quantity);
+
+    addProduct(formData);
   };
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
