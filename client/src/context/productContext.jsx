@@ -1,6 +1,7 @@
 import { createContext, useEffect } from "react";
 import { useState } from "react";
 import axios from "../config/axios-auth";
+import { useNavigate } from "react-router-dom";
 
 export const ProductContext = createContext();
 
@@ -10,6 +11,8 @@ const ProductContextProvider = ({ children }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
+
+  const navigate = useNavigate();
 
   //Add product
   const addProduct = async (formData) => {
@@ -22,6 +25,7 @@ const ProductContextProvider = ({ children }) => {
       }
       setErrors(null);
       alert("Product added successfully");
+      getAllProducts();
       //window.location.replace("/signedin");
       //window.location.reload();
     } catch (error) {
@@ -81,7 +85,7 @@ const ProductContextProvider = ({ children }) => {
       const response = await axios.delete(
         baseURL + `/products/delete/${productId}`
       );
-
+      getAllProducts();
       console.log("Product deleted:", response.data.message);
     } catch (error) {
       console.log(error);
@@ -97,7 +101,8 @@ const ProductContextProvider = ({ children }) => {
       );
 
       if (response.data.success) {
-        //navigate("/app");
+        navigate("/admin/products");
+        getAllProducts();
         console.log("Product updated successfully!", response.data.product);
       } else {
         console.error("Error updating the product", response.data.message);
@@ -108,18 +113,19 @@ const ProductContextProvider = ({ children }) => {
   };
 
   //Get all products
+  const getAllProducts = async () => {
+    try {
+      const response = await axios.get(baseURL + `/products/getall`);
+
+      setAllProducts(response.data.allProducts);
+      console.log("fetch all products:", response.data.allProducts);
+    } catch (error) {
+      console.error("Error fetching the products", error);
+    }
+  };
+
+  //fetch all products
   useEffect(() => {
-    const getAllProducts = async () => {
-      try {
-        const response = await axios.get(baseURL + `/products/getall`);
-
-        setAllProducts(response.data.allProducts);
-        console.log("fetch all products:", response.data.allProducts);
-      } catch (error) {
-        console.error("Error fetching the products", error);
-      }
-    };
-
     getAllProducts();
   }, []);
 
