@@ -2,6 +2,8 @@ import express from "express";
 import {
   addProduct,
   deleteProduct,
+  filterProductsByCategory,
+  findProduct,
   getAllProducts,
   updateProduct,
 } from "../controllers/productControllers.js";
@@ -19,10 +21,13 @@ productRoutes.post(
 );
 productRoutes.get("/getall", getAllProducts);
 productRoutes.delete("/delete/:productId", deleteProduct);
+productRoutes.get("/findproduct/:productId", findProduct);
 productRoutes.put(
   "/editproduct/:productId",
   //should match the name attribute of the input field in your form where the file is being uploaded
   productImageUpload.single("productImage"),
   updateProduct
 );
+productRoutes.get("/category/:selectedCategory?", filterProductsByCategory);
+
 export default productRoutes;

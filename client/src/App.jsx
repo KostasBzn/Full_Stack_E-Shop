@@ -20,6 +20,7 @@ import Dashboard from "./pages/Admin/Dashboard";
 import Products from "./pages/Admin/Products";
 import { AdminContext } from "./context/adminContext";
 import AdminNavbar from "./components/AdminNavbar";
+import EditProduct from "./pages/Admin/EditProductForm";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -45,6 +46,7 @@ function App() {
         <Route path="/admin" element={<SignInAdmin />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/products" element={<Products />} />
+        <Route path="/admin/editproduct" element={<EditProduct />} />
       </Routes>
       {user && !admin && <Footer />}
     </>

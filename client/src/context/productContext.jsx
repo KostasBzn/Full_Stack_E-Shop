@@ -7,10 +7,11 @@ export const ProductContext = createContext();
 const ProductContextProvider = ({ children }) => {
   const [allProducts, setAllProducts] = useState(null);
   const [errors, setErrors] = useState(null);
-  const [updatedProduct, setUpdatedProduct] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
+  //Add product
   const addProduct = async (formData) => {
     setErrors(null);
     try {
@@ -20,6 +21,7 @@ const ProductContextProvider = ({ children }) => {
         console.log("New Product==>>", response.data.newProduct);
       }
       setErrors(null);
+      alert("Product added successfully");
       //window.location.replace("/signedin");
       //window.location.reload();
     } catch (error) {
@@ -37,10 +39,46 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
-  const deleteProduct = async (userId) => {
+  //find product
+  const findProduct = async (productId) => {
+    try {
+      const response = await axios.get(
+        baseURL + `/products/findproduct/${productId}`
+      );
+
+      if (response.data.success) {
+        setSelectedProduct(response.data.product);
+        console.log("Product found successfully!", response.data.product);
+      } else {
+        console.error("Product not found");
+      }
+    } catch (error) {
+      console.error("Error finding the product", error.message);
+    }
+  };
+
+  const filterProductsByCategory = async (selectedCategory) => {
+    try {
+      const response = await axios.get(
+        baseURL + `/products/category/${selectedCategory}`
+      );
+
+      if (response.data.success) {
+        setSelectedProduct(response.data.products);
+        console.log("Products found successfully!", response.data.products);
+      } else {
+        console.error("Products not found");
+      }
+    } catch (error) {
+      console.error("Error finding the products", error.message);
+    }
+  };
+
+  //Delete product
+  const deleteProduct = async (productId) => {
     try {
       const response = await axios.delete(
-        baseURL + `/products/delete/${userId}`
+        baseURL + `/products/delete/${productId}`
       );
 
       console.log("Product deleted:", response.data.message);
@@ -49,16 +87,15 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  //Update product
   const updateProduct = async (productId, updatedData) => {
     try {
       const response = await axios.put(
-        baseURL + `/users/updateuser/${productId}`,
+        baseURL + `/products/editproduct/${productId}`,
         updatedData
       );
 
       if (response.data.success) {
-        setUpdatedProduct(response.data.product);
-
         //navigate("/app");
         console.log("Product updated successfully!", response.data.product);
       } else {
@@ -69,12 +106,13 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  //Get all products
   useEffect(() => {
     const getAllProducts = async () => {
       try {
         const response = await axios.get(baseURL + `/products/getall`);
 
-        setAllProducts(response.data, allProducts);
+        setAllProducts(response.data.allProducts);
         console.log("fetch all products:", response.data.allProducts);
       } catch (error) {
         console.error("Error fetching the products", error);
@@ -86,7 +124,16 @@ const ProductContextProvider = ({ children }) => {
 
   return (
     <ProductContext.Provider
-      value={{ allProducts, deleteProduct, addProduct, updateProduct }}
+      value={{
+        allProducts,
+        selectedProduct,
+        errors,
+        deleteProduct,
+        addProduct,
+        updateProduct,
+        findProduct,
+        filterProductsByCategory,
+      }}
     >
       {children}
     </ProductContext.Provider>

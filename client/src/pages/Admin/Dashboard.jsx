@@ -159,6 +159,20 @@ const Dashboard = () => {
             <option value="bikes">Bikes</option>
           </select>
         </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="productImage"
+          >
+            Image:
+          </label>
+          <input
+            className="block w-full"
+            name="productImage"
+            type="file"
+            onChange={handleImageChange}
+          />
+        </div>
         <div className="flex items-center justify-center">
           <button
             className="bg-customColor hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -168,6 +182,17 @@ const Dashboard = () => {
           </button>
         </div>
       </form>
+      <div className="flex items-left">
+        {errors ? (
+          <ul className="text-red-500 list-none list-inside text-left">
+            {errors.map((err, i) => (
+              <li className="py-1 text-sm" key={i}>
+                - {err.message}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
     </div>
   );
 };

@@ -20,6 +20,7 @@ export const addProduct = async (req, res) => {
   }
 };
 
+//Get all products
 export const getAllProducts = async (req, res) => {
   try {
     const allProducts = await Product.find();
@@ -27,6 +28,47 @@ export const getAllProducts = async (req, res) => {
   } catch (error) {
     console.error("Error getting all the products:", error.message);
     res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+//find product
+export const findProduct = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+
+    const product = await Product.findOne({ _id: productId });
+
+    if (!product) {
+      return res.send({ success: false, message: "Product not found" });
+    }
+
+    res.send({ success: true, product });
+  } catch (error) {
+    console.error("Error finding the product", error.message);
+    res.send({ success: false, error: error.message });
+  }
+};
+
+//find product by category
+export const filterProductsByCategory = async (req, res) => {
+  try {
+    const selectedCategory = req.params.selectedCategory;
+    let products;
+
+    if (selectedCategory) {
+      products = await Product.find({ category: selectedCategory });
+    } else {
+      products = await Product.find();
+    }
+
+    if (!products) {
+      return res.send({ success: false, message: "Product not found" });
+    }
+
+    res.send({ success: true, products });
+  } catch (error) {
+    console.error("Error finding the product", error.message);
+    res.send({ success: false, error: error.message });
   }
 };
 
