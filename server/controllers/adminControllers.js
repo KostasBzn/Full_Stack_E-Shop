@@ -23,9 +23,9 @@ export const handleRegisterAdmin = async (req, res) => {
     await newAdmin.save();
 
     res.send({ success: true, newAdmin });
-    console.log("New user created successfully:", newAdmin);
+    console.log("New admin created successfully:", newAdmin);
   } catch (error) {
-    console.error("Error creating the user");
+    console.error("Error creating the admin");
     res.status(500).json({ success: false, error: error.message });
   }
 };

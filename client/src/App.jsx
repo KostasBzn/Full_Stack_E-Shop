@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
@@ -14,15 +14,20 @@ import AddressUpdate from "./pages/AddressUpdtate";
 import DeleteAccForm from "./pages/DeleteAccountForm";
 import ForgotPass from "./pages/ForgotPass";
 import ChangePass from "./pages/ChangePass";
-import AdminHome from "./pages/Admin/AdminHome";
+import SignInAdmin from "./pages/Admin/SignInAdmin";
+import SignUpAdmin from "./pages/Admin/SignUpAdmin";
+import Dashboard from "./pages/Admin/Dashboard";
+import Products from "./pages/Admin/Products";
+import { AdminContext } from "./context/adminContext";
+import AdminNavbar from "./components/AdminNavbar";
 
 function App() {
   const { user } = useContext(UserContext);
-  const admin = "null";
-  const navigate = useNavigate();
+  const { admin } = useContext(AdminContext);
 
   return (
     <>
+      {admin && !user && <AdminNavbar />}
       {user && !admin && <Navbar />}
       <Routes>
         {user && <Route path="/home" element={<Home />} />}
@@ -35,7 +40,11 @@ function App() {
         <Route path="/deleteuser" element={<DeleteAccForm />} />
         <Route path="/forgotpass" element={<ForgotPass />} />
         <Route path="/changepass/:token" element={<ChangePass />} />
-        <Route path="/admin" element={<AdminHome />} />
+        <Route path="/admin" element={<SignInAdmin />} />
+        <Route path="/signupadmin" element={<SignUpAdmin />} />
+        <Route path="/admin" element={<SignInAdmin />} />
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/products" element={<Products />} />
       </Routes>
       {user && !admin && <Footer />}
     </>
