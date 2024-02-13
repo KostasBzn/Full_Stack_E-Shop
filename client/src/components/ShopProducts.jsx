@@ -17,45 +17,39 @@ const ShopProducts = () => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       {allProducts?.map((product) => (
-        <div key={product._id} className="border rounded-md p-4">
+        <div
+          key={product._id}
+          className="bg-white rounded-md shadow-md p-4 flex flex-col space-y-4"
+        >
           <img
             src={baseURL + "/uploads/prdim/" + product.image}
             alt={product.title}
-            className="w-full h-60 object-cover mb-2"
+            className="w-full h-48 object-cover rounded-md mb-4"
           />
-          <h3 className="text-lg font-bold mb-2">{product.title}</h3>
-          <p className="text-sm mb-2">{product.description}</p>
-          <p className="text-sm mb-2">
-            <b>Price:</b> {product.price} €
-          </p>
-          <p
-            className={`text-sm mb-2 ${
-              product.quantity === 0
-                ? "text-red-500"
-                : product.quantity === 1
-                ? "text-yellow-500"
-                : "text-green-500"
-            }`}
-          >
-            {product.quantity === 0 ? (
-              <b>Sold out</b>
-            ) : product.quantity === 1 ? (
-              <b>Last item left in stock</b>
-            ) : (
-              <b>Still {product.quantity} in stock</b>
-            )}
-          </p>
-
-          <div className="flex justify-center my-4 space-x-4">
-            <button
-              onClick={() => {
-                handleAddToCart(product._id);
-              }}
-              className="rounded w-1/2 px-2 py-3  border border-yellow-400 bg-gradient-to-b from-yellow-300 to-yellow-500"
+          <h3 className="text-lg font-bold text-gray-800">{product.title}</h3>
+          <p className="text-sm text-gray-600 mb-2">{product.description}</p>
+          <div className="flex items-center justify-between text-sm">
+            <p className="font-bold text-gray-800">€ {product.price}</p>
+            <p
+              className={`text-green-500  ${
+                product.quantity === 0 ? "text-red-500" : null
+              } ${product.quantity === 1 ? "text-yellow-500" : null}`}
             >
-              Add to Cart
-            </button>
+              {product.quantity === 0 ? (
+                <b>Sold out</b>
+              ) : product.quantity === 1 ? (
+                <b>Last item left in stock</b>
+              ) : (
+                <b>Still {product.quantity} in stock</b>
+              )}
+            </p>
           </div>
+          <button
+            onClick={() => handleAddToCart(product._id)}
+            className="w-full px-4 py-2 text-center text-white rounded-md bg-yellow-500 hover:bg-yellow-700 transition-all duration-200"
+          >
+            Add to Cart
+          </button>
         </div>
       ))}
     </div>
