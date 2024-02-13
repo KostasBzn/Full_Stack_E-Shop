@@ -80,6 +80,25 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  //filter product by price
+  const filterProductsByPrice = async (minPrice, maxPrice) => {
+    try {
+      const response = await axios.post(baseURL + `/products/filterprice`, {
+        minPrice,
+        maxPrice,
+      });
+
+      if (response.data.success) {
+        setAllProducts(response.data.products);
+        console.log("Products found by price", response.data.products);
+      } else {
+        console.error("Products not found by price");
+      }
+    } catch (error) {
+      console.error("Error finding the products by price", error.message);
+    }
+  };
+
   //Delete product
   const deleteProduct = async (productId) => {
     try {
@@ -245,6 +264,8 @@ const ProductContextProvider = ({ children }) => {
         addToBasket,
         deleteFromBasket,
         getBasket,
+        filterProductsByPrice,
+        getAllProducts,
       }}
     >
       {children}

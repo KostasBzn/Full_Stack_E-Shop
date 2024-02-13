@@ -2,7 +2,8 @@ import { useContext, useState } from "react";
 import { ProductContext } from "../context/productContext";
 
 const CategorySearch = () => {
-  const { filterProductsByCategory } = useContext(ProductContext);
+  const { filterProductsByCategory, filterProductsByPrice, getAllProducts } =
+    useContext(ProductContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -18,13 +19,17 @@ const CategorySearch = () => {
     //console.log(category);
   };
 
-  const handleSearch = () => {
-    console.log("Min Price:", minPrice);
-    console.log("Max Price:", maxPrice);
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (minPrice !== "" && maxPrice !== "") {
+      filterProductsByPrice(minPrice, maxPrice);
+      setMinPrice("");
+      setMaxPrice("");
+    } else getAllProducts();
   };
   return (
     <>
-      <div className="relative ">
+      <div className="relative top-20">
         <button
           onClick={toggleDropdown}
           className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -49,11 +54,12 @@ const CategorySearch = () => {
         </button>
         {isDropdownOpen && (
           <div>
-            <div className="  top-full z-2 w-56 p-3 bg-white rounded-t-lg shadow dark:bg-gray-700 border-b">
+            <div className="top-full z-2 w-56 p-3  bg-white rounded-t-lg shadow dark:bg-gray-700 border-b">
               <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                 Price
               </h6>
-              <div className="flex items-center gap-2">
+
+              <form className="flex items-center gap-2">
                 <div className="flex space-x-2 ">
                   <input
                     type="text"
@@ -62,6 +68,7 @@ const CategorySearch = () => {
                     onChange={(e) => setMinPrice(e.target.value)}
                     className="border-gray-300 focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border rounded-md"
                     required
+                    pattern="\d*"
                   />
                   <input
                     type="text"
@@ -70,6 +77,7 @@ const CategorySearch = () => {
                     onChange={(e) => setMaxPrice(e.target.value)}
                     className="border-gray-300 focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border rounded-md"
                     required
+                    pattern="\d*"
                   />
                 </div>
                 <button
@@ -78,7 +86,7 @@ const CategorySearch = () => {
                 >
                   <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-              </div>
+              </form>
             </div>
             <div className="  top-full z-2 w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700 ">
               <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
