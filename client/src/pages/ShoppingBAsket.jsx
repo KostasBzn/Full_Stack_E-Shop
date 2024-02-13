@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 const ShoppingBasket = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
-  const { basket, deleteFromBasket } = useContext(ProductContext);
+  const { basket, deleteFromBasket, quantityIncrease, quantityDecrease } =
+    useContext(ProductContext);
 
   const totalSum = basket.reduce(
     (sum, product) => sum + product.price * product.basketQuantity,
@@ -32,25 +33,35 @@ const ShoppingBasket = () => {
                   alt={product.title}
                   className="w-12 h-12 object-cover"
                 />
-                <div className="flex">
-                  <p className="text-base font-medium text-stone-500">
-                    {product.basketQuantity} x
-                  </p>
-                  <h4 className="ml-2 text-l font-medium text-stone-600">
-                    {product.title}
-                  </h4>
-                </div>
+
+                <h4 className="ml-2 text-l font-medium text-stone-600">
+                  {product.title}
+                </h4>
               </div>
 
               <div className="flex items-center">
-                <div className="mr-4 flex items-center gap-3">
-                  <button className="px-2 py-1 bg-gray-200 rounded-lg ml-1 text-xs">
-                    <i class="fa-solid fa-minus"></i>
+                <div className="mr-4 flex items-center gap-3 border border-gray-300 rounded-lg px-2 py-1 ">
+                  <button
+                    onClick={() => {
+                      quantityDecrease(product._id);
+                    }}
+                    className="px-2 py-1 bg-transparent rounded-lg text-xs"
+                  >
+                    <i className="fa-solid fa-minus"></i>
                   </button>
-                  <button className="px-2 py-1 bg-gray-200 rounded-lg text-xs">
-                    <i class="fa-solid fa-plus"></i>
+                  <p className="text-base font-medium text-stone-500">
+                    {product.basketQuantity}
+                  </p>
+                  <button
+                    onClick={() => {
+                      quantityIncrease(product._id);
+                    }}
+                    className="px-2 py-1 bg-transparent rounded-lg text-xs"
+                  >
+                    <i className="fa-solid fa-plus"></i>
                   </button>
                 </div>
+
                 <div className="flex items-center">
                   <p className="text-base font-medium text-gray-900">
                     {product.price} €
@@ -84,7 +95,7 @@ const ShoppingBasket = () => {
           </div>
           <div className="mt-6 flex justify-center text-center">
             <a
-              href="#"
+              href="./checkout"
               className="inline-block bg-indigo-600 py-3 px-6 rounded-md text-base font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               Checkout

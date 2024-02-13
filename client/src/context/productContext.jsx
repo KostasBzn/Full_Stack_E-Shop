@@ -178,6 +178,38 @@ const ProductContextProvider = ({ children }) => {
   };
   console.log("basket local storage==>", basket);
 
+  /* quantity button plus*/
+  const quantityIncrease = (productId) => {
+    const updatedBasket = basket.map((product) => {
+      if (product._id === productId) {
+        if (product.basketQuantity < product.quantity) {
+          return {
+            ...product,
+            basketQuantity: product.basketQuantity + 1,
+          };
+        }
+      }
+      return product;
+    });
+    setBasket(updatedBasket);
+  };
+
+  /* quantity button minus*/
+  const quantityDecrease = (productId) => {
+    const updatedBasket = basket.map((product) => {
+      if (product._id === productId) {
+        if (product.basketQuantity > 1) {
+          return {
+            ...product,
+            basketQuantity: product.basketQuantity - 1,
+          };
+        }
+      }
+      return product;
+    });
+    setBasket(updatedBasket);
+  };
+
   useEffect(() => {
     getBasket();
   }, []);
@@ -189,6 +221,8 @@ const ProductContextProvider = ({ children }) => {
         selectedProduct,
         errors,
         basket,
+        quantityIncrease,
+        quantityDecrease,
         deleteProduct,
         addProduct,
         updateProduct,

@@ -19,7 +19,7 @@ const Navbar = () => {
   };
 
   const basketTotalQuantity = basket.reduce(
-    (total, product) => total + product.basketQuantity,
+    (total, product) => total + product?.basketQuantity,
     0
   );
 

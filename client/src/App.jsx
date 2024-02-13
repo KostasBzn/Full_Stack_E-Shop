@@ -22,6 +22,7 @@ import { AdminContext } from "./context/adminContext";
 import AdminNavbar from "./components/AdminNavbar";
 import EditProduct from "./pages/Admin/EditProductForm";
 import ShoppingBasket from "./pages/ShoppingBAsket";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -49,6 +50,7 @@ function App() {
         <Route path="/admin/products" element={<Products />} />
         <Route path="/admin/editproduct" element={<EditProduct />} />
         <Route path="/shoppingbasket" element={<ShoppingBasket />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {user && !admin && <Footer />}
     </>
