@@ -1,8 +1,12 @@
 import User from "../models/userSchema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import fs from "fs";
 import { registerValidator } from "../validator/user-validator.js";
-import emailVerification from "../verification/emailVerification.js";
+import {
+  emailVerification,
+  changePassVerification,
+} from "../verification/emailVerification.js";
 
 //Register user
 export const handleRegister = async (req, res) => {
@@ -46,17 +50,24 @@ export const handleSignIn = async (req, res) => {
     const { password, email } = req.body;
     const user = await User.findOne({ email });
 
-    if (!user) return res.status(404).send("User not found");
+    if (!user)
+      return res.status(400).send({
+        success: false,
+        error: "User not found",
+      });
 
     const isMatched = await bcrypt.compare(password, user.password);
 
     if (!isMatched || !user)
-      return res.status(400).send("Wrong username or password");
+      return res.status(400).send({
+        success: false,
+        error: "Email or password is wrong",
+      });
 
     if (!user.verified)
       return res.status(400).send({
         success: false,
-        error: "Email is not verified",
+        error: "Email is not verified, please check your email",
       });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
@@ -81,38 +92,38 @@ export const loggedUser = async (req, res) => {
     res.status(500).send({ success: false, error: error.message });
   }
 };
-//Mallon tha to sviso
-export const updateUserProfilePicture = async (req, res) => {
-  const { userId } = req.params;
-  const { filename } = req.file;
-
-  try {
-    const updatedUser = await User.findByIdAndUpdate(
-      userId,
-      { image: filename },
-      { new: true }
-    );
-    if (!updatedUser) {
-      return res.send({ success: false, message: "User not found" });
-    }
-
-    res.send({
-      success: true,
-      user: updatedUser,
-      message: "Updated successfully",
-    });
-  } catch (error) {
-    console.error("Error updating profile picture:", error.message);
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
 
 //Delete profile
 export const deleteUser = async (req, res) => {
   const { userId } = req.params;
 
-  await User.findByIdAndDelete(userId);
-  res.json({ message: "User deleted successfully!" });
+  try {
+    const findUser = await User.findById(userId);
+    if (findUser.image) {
+      const filePath = "uploads/prfim/" + findUser.image;
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error("Error deleting file:", err);
+          return;
+        }
+        console.log("File deleted successfully");
+      });
+    }
+
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).send({
+        success: false,
+        error: "User not found.",
+      });
+    }
+
+    res.send({ message: "User deleted successfully!" });
+  } catch (error) {
+    console.log("Error deleting the user:", error.message);
+    res.status(500).send({ success: false, error: error.message });
+  }
 };
 
 //find a user
@@ -138,7 +149,20 @@ export const updateUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    if (req.file) req.body.image = req.file.filename;
+    if (req.file) {
+      const findUser = await User.findById(userId);
+      if (findUser.image) {
+        const filePath = "uploads/prfim/" + findUser.image;
+        fs.unlink(filePath, (err) => {
+          if (err) {
+            console.error("Error deleting file:", err);
+            return;
+          }
+          console.log("File deleted successfully");
+        });
+      }
+      req.body.image = req.file.filename;
+    }
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
@@ -182,4 +206,53 @@ export const emailConfirm = async (req, res) => {
   }
 };
 
-// node eimailer
+export const forgotPass = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      $or: [{ email: req.body.email }, { username: req.body.username }],
+    });
+    if (!user)
+      return res.status(400).send({
+        success: false,
+        error: "User not found, please type the correct email",
+      });
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
+      expiresIn: "1h",
+    }); // generate a one hour validity token
+    console.log("token:", token);
+
+    changePassVerification(token, user.email);
+
+    res.send({ success: true });
+  } catch (error) {
+    console.log("Error in forgotPass:", error.message);
+
+    res.status(500).send({ success: false, error: error.message });
+  }
+};
+
+export const changePass = async (req, res) => {
+  try {
+    const token = jwt.verify(req.body.token, process.env.JWT_SECTER_KEY);
+
+    const saltRounds = 10;
+
+    const hashedpassword = await bcrypt.hash(req.body.password, saltRounds);
+
+    //req.body.password = hashedpassword;
+
+    const user = await User.findByIdAndUpdate(
+      token.id,
+      { password: hashedpassword },
+      { new: true }
+    );
+    console.log("🚀 ~ user change pass:", user);
+
+    res.send({ success: true });
+  } catch (error) {
+    console.log("🚀 ~ error in changePass:", error.message);
+
+    res.status(500).send({ success: false, error: error.message });
+  }
+};

@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, logout } = useContext(UserContext);
+
+  const baseURL = import.meta.env.VITE_BASE_URL;
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -21,21 +24,38 @@ const Navbar = () => {
             className="rounded-full overflow-hidden "
             onClick={toggleDropdown}
           >
-            <img
-              src="../public/vite.svg"
-              alt="profpic"
-              className="w-12 h-12 bg-gray-300 object-cover"
-              style={{ borderRadius: "50%" }}
-            />
+            {user.image ? (
+              <img
+                src={baseURL + "/uploads/prfim/" + user.image}
+                className="w-12 h-12 bg-gray-300 object-cover"
+                alt="Profile img"
+                style={{ borderRadius: "50%" }}
+              />
+            ) : (
+              <img
+                src="../public/vite.svg"
+                alt="profpic"
+                className="w-12 h-12 bg-gray-300 object-cover"
+                style={{ borderRadius: "50%" }}
+              />
+            )}
           </button>
           {isDropdownOpen && (
             <div className="absolute left-10 top-10 mt-2 w-48 bg-white rounded-md shadow-lg">
-              <button
-                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+              <Link
                 onClick={toggleDropdown}
+                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+                to="/home"
+              >
+                Home
+              </Link>
+              <Link
+                onClick={toggleDropdown}
+                className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
+                to="/userprofile"
               >
                 Profile
-              </button>
+              </Link>
               <button
                 className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
                 onClick={handleLogout}

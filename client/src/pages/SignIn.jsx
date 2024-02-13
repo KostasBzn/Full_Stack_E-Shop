@@ -6,7 +6,7 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { signIn } = useContext(UserContext);
+  const { signIn, errors } = useContext(UserContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ const SignIn = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div className="mb-6">
+            <div className="mb-0">
               <label
                 className="block text-sm font-bold mb-2 text-left"
                 htmlFor="password"
@@ -52,7 +52,18 @@ const SignIn = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-left">
+              {errors ? (
+                <ul className="text-red-500 list-none list-inside text-left">
+                  {errors.map((err, i) => (
+                    <li className="py-1 text-sm" key={i}>
+                      - {err.message}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+            <div className="flex items-center mt-3  justify-between">
               <button
                 className="bg-customColor hover:bg-customColor text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit"
@@ -60,8 +71,8 @@ const SignIn = () => {
                 Sign In
               </button>
               <a
-                className="text-sm text-customColor hover:text-customColor"
-                href="#"
+                className="text-sm  text-customColor hover:text-customColor"
+                href="/forgotpass"
               >
                 Forgot password?
               </a>
