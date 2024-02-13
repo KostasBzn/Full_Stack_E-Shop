@@ -8,9 +8,8 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex h-screen">
-        <div className="bg-customColor1 w-56 h-full border-t-2 pt-5 flex-none">
-          {/* this div is no longer expanding */}
+      <div className="flex">
+        <div className="bg-customColor1 w-56 border-t-2 pt-5 flex-none">
           <CategorySearch className="h-full pt-6 px-4" />
         </div>
         <div className="flex-grow p-5 max-w-full">
