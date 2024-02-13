@@ -3,7 +3,8 @@ import { ProductContext } from "../context/productContext";
 import { UserContext } from "../context/userContext";
 
 const ShopProducts = () => {
-  const { allProducts, addToBasket } = useContext(ProductContext);
+  const { allProducts, addToBasket, quantityAlert } =
+    useContext(ProductContext);
   const { user } = useContext(UserContext);
 
   const baseURL = import.meta.env.VITE_BASE_URL;

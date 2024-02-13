@@ -10,7 +10,6 @@ const ProductContextProvider = ({ children }) => {
   const [errors, setErrors] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [basket, setBasket] = useState([]);
-  const [basketCounter, setBasketCounter] = useState(0);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -141,6 +140,21 @@ const ProductContextProvider = ({ children }) => {
       const existingProductIndex = basket.findIndex(
         (product) => product._id === productId
       );
+
+      // Calculate the total quantity of this product already in the basket
+      const totalQuantityInBasket = basket.reduce((total, product) => {
+        if (product._id === productId) {
+          return total + product.basketQuantity;
+        }
+        return total;
+      }, 0);
+
+      // Check if adding one more item would exceed the available quantity
+      if (productToAdd.quantity < totalQuantityInBasket + 1) {
+        // If so, prevent the addition and display a message
+        alert("You cannot add more items than the available quantity");
+        return;
+      }
 
       if (existingProductIndex !== -1) {
         const updatedBasket = [...basket];
