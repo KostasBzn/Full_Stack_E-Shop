@@ -73,7 +73,6 @@ export const filterProductsByCategory = async (req, res) => {
 };
 
 //find and filter by Price
-
 export const filterProductsByPrice = async (req, res) => {
   try {
     const { minPrice, maxPrice } = req.body;
