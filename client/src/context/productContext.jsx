@@ -9,6 +9,8 @@ const ProductContextProvider = ({ children }) => {
   const [allProducts, setAllProducts] = useState(null);
   const [errors, setErrors] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [basket, setBasket] = useState([]);
+  const [basketCounter, setBasketCounter] = useState(0);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -129,17 +131,72 @@ const ProductContextProvider = ({ children }) => {
     getAllProducts();
   }, []);
 
+  //add to basket
+  const addToBasket = (productId) => {
+    const productToAdd = allProducts.find(
+      (product) => product._id === productId
+    );
+
+    if (productToAdd) {
+      const existingProductIndex = basket.findIndex(
+        (product) => product._id === productId
+      );
+
+      if (existingProductIndex !== -1) {
+        const updatedBasket = [...basket];
+        updatedBasket[existingProductIndex].basketQuantity += 1;
+        setBasket(updatedBasket);
+        console.log("Quantity updated for product:", productToAdd);
+        localStorage.setItem("shoppingBasket", JSON.stringify(updatedBasket));
+      } else {
+        const updatedBasket = [
+          ...basket,
+          { ...productToAdd, basketQuantity: 1 },
+        ];
+        setBasket(updatedBasket);
+        console.log("Product added to basket:", productToAdd);
+        localStorage.setItem("shoppingBasket", JSON.stringify(updatedBasket));
+      }
+    } else {
+      console.error("Product not found in allProducts");
+    }
+  };
+
+  /* Delete button */
+  const deleteFromBasket = (productId) => {
+    const updatedBasket = basket.filter((product) => product._id !== productId);
+    setBasket(updatedBasket);
+    localStorage.setItem("shoppingBasket", JSON.stringify(updatedBasket));
+    getBasket();
+  };
+
+  /* Get items from basket */
+  const getBasket = () => {
+    const basketData = localStorage.getItem("shoppingBasket");
+    const basketArray = JSON.parse(basketData);
+    setBasket(basketArray);
+  };
+  console.log("basket local storage==>", basket);
+
+  useEffect(() => {
+    getBasket();
+  }, []);
+
   return (
     <ProductContext.Provider
       value={{
         allProducts,
         selectedProduct,
         errors,
+        basket,
         deleteProduct,
         addProduct,
         updateProduct,
         findProduct,
         filterProductsByCategory,
+        addToBasket,
+        deleteFromBasket,
+        getBasket,
       }}
     >
       {children}
