@@ -68,7 +68,7 @@ const EditProduct = () => {
     updateProduct(selectedProduct._id, formData);
 
     //window.location.replace("/admin/products");
-    navigate("/admin/products");
+    //navigate("/admin/products");
   };
   return (
     <div className="max-w-md mt-10 mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
