@@ -153,6 +153,7 @@ const ProductContextProvider = ({ children }) => {
       if (response.data.success) {
         localStorage.removeItem("shoppingBasket");
         getAllProducts();
+        getBasket();
         navigate("/home");
         console.log("Quantities updated:", response.data.success);
       }
@@ -280,6 +281,7 @@ const ProductContextProvider = ({ children }) => {
       return updatedProduct;
     });
     updateQuantites(updatedQuantityProducts);
+
     return updatedQuantityProducts;
 
     /* Remove the entire basket from local storage

@@ -32,13 +32,13 @@ const ShopProducts = () => {
             <p className="font-bold text-gray-800">€ {product.price}</p>
             <p
               className={`text-green-500  ${
-                product.quantity === 0 ? "text-red-500" : null
-              } ${product.quantity === 1 ? "text-yellow-500" : null}`}
+                product.quantity === "0" ? "text-red-500" : null
+              } ${product.quantity === "1" ? "text-yellow-500" : null}`}
             >
-              {product.quantity === 0 ? (
+              {product.quantity === "0" ? (
                 <b>Sold out</b>
-              ) : product.quantity === 1 ? (
-                <b>Last item left in stock</b>
+              ) : product.quantity === "1" ? (
+                <b>Last item in stock</b>
               ) : (
                 <b>Still {product.quantity} in stock</b>
               )}
@@ -46,7 +46,10 @@ const ShopProducts = () => {
           </div>
           <button
             onClick={() => handleAddToCart(product._id)}
-            className="w-full px-4 py-2 text-center text-white rounded-md bg-yellow-500 hover:bg-yellow-700 transition-all duration-200"
+            className={`w-full px-4 py-2 text-center text-white rounded-md bg-yellow-500  transition-all duration-200 ${
+              product.quantity === "0" ? "bg-amber-200" : "hover:bg-yellow-700"
+            }`}
+            disabled={product.quantity === "0"}
           >
             Add to Cart
           </button>
