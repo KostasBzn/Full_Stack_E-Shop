@@ -7,6 +7,7 @@ import {
   getAllProducts,
   updateProduct,
   filterProductsByPrice,
+  updateQuantities,
 } from "../controllers/productControllers.js";
 import { productImageUpload } from "../middleware/mutlerLocalstorage.js";
 const productRoutes = express.Router();
@@ -31,5 +32,6 @@ productRoutes.put(
 );
 productRoutes.get("/category/:selectedCategory?", filterProductsByCategory);
 productRoutes.post("/filterprice", filterProductsByPrice);
+productRoutes.put("/updatequantities", updateQuantities);
 
 export default productRoutes;

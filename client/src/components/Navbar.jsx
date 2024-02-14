@@ -18,7 +18,7 @@ const Navbar = () => {
     logout();
   };
 
-  const basketTotalQuantity = basket.reduce(
+  const basketTotalQuantity = basket?.reduce(
     (total, product) => total + product?.basketQuantity,
     0
   );
@@ -84,7 +84,9 @@ const Navbar = () => {
               <i className="fa-solid fa-cart-shopping text-white"></i>
             </Link>
           </div>
-          <p className="text-white font-300">({basketTotalQuantity})</p>
+          <p className="text-white font-300">
+            ({basketTotalQuantity !== undefined ? basketTotalQuantity : "0"})
+          </p>
         </div>
       </nav>
     </>

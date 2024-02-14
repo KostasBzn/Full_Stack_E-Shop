@@ -10,7 +10,6 @@ const ProductContextProvider = ({ children }) => {
   const [errors, setErrors] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [basket, setBasket] = useState([]);
-
   const baseURL = import.meta.env.VITE_BASE_URL;
 
   const navigate = useNavigate();
@@ -144,6 +143,24 @@ const ProductContextProvider = ({ children }) => {
     }
   };
 
+  //Update quantities in database
+  const updateQuantites = async (updatedData) => {
+    try {
+      const response = await axios.put(
+        baseURL + `/products/updatequantities`,
+        updatedData
+      );
+      if (response.data.success) {
+        localStorage.removeItem("shoppingBasket");
+        getAllProducts();
+        navigate("/home");
+        console.log("Quantities updated:", response.data.success);
+      }
+    } catch (error) {
+      console.error("Error updating the quantities", error);
+    }
+  };
+
   //fetch all products
   useEffect(() => {
     getAllProducts();
@@ -157,6 +174,7 @@ const ProductContextProvider = ({ children }) => {
 
     if (productToAdd) {
       const existingProductIndex = basket.findIndex(
+        /* I get an error here, when the basklet is empty */
         (product) => product._id === productId
       );
 
@@ -207,7 +225,9 @@ const ProductContextProvider = ({ children }) => {
   const getBasket = () => {
     const basketData = localStorage.getItem("shoppingBasket");
     const basketArray = JSON.parse(basketData);
-    setBasket(basketArray);
+    if (!basketData) {
+      setBasket([]);
+    } else setBasket(basketArray);
   };
   console.log("basket local storage==>", basket);
 
@@ -224,6 +244,7 @@ const ProductContextProvider = ({ children }) => {
       }
       return product;
     });
+    localStorage.setItem("shoppingBasket", JSON.stringify(updatedBasket));
     setBasket(updatedBasket);
   };
 
@@ -240,7 +261,29 @@ const ProductContextProvider = ({ children }) => {
       }
       return product;
     });
+    localStorage.setItem("shoppingBasket", JSON.stringify(updatedBasket));
     setBasket(updatedBasket);
+  };
+
+  //update product Quantites after purchase
+  const updateProductsQuantities = (basket) => {
+    const updatedQuantityProducts = basket.map((product) => {
+      const updatedQuantity =
+        parseInt(product.quantity) - parseInt(product.basketQuantity);
+
+      const updatedProduct = {
+        ...product,
+        quantity: updatedQuantity.toString(),
+      };
+
+      delete updatedProduct.basketQuantity;
+      return updatedProduct;
+    });
+    updateQuantites(updatedQuantityProducts);
+    return updatedQuantityProducts;
+
+    /* Remove the entire basket from local storage
+       localStorage.removeItem("basket"); */
   };
 
   useEffect(() => {
@@ -266,6 +309,7 @@ const ProductContextProvider = ({ children }) => {
         getBasket,
         filterProductsByPrice,
         getAllProducts,
+        updateProductsQuantities,
       }}
     >
       {children}

@@ -172,3 +172,24 @@ export const updateProduct = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
+//Update quantities
+export const updateQuantities = async (req, res) => {
+  const basket = req.body;
+  console.log("Basket back end==>>", basket);
+  try {
+    const updatePromises = basket.map(async (product) => {
+      await Product.findByIdAndUpdate(product._id, {
+        quantity: product.quantity,
+      });
+    });
+
+    // Wait for all updates to complete
+    await Promise.all(updatePromises);
+
+    res.send({ success: true, message: "Quantities updated successfully" });
+  } catch (error) {
+    console.error("Error updating product quantities:", error);
+    res.send({ success: false, error: error.message });
+  }
+};

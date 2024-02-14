@@ -7,7 +7,7 @@ const ShoppingBasket = () => {
   const { basket, deleteFromBasket, quantityIncrease, quantityDecrease } =
     useContext(ProductContext);
 
-  const totalSum = basket.reduce(
+  const totalSum = basket?.reduce(
     (sum, product) => sum + product.price * product.basketQuantity,
     0
   );
