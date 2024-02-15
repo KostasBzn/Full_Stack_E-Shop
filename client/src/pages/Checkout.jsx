@@ -346,7 +346,10 @@ const Checkout = () => {
             <div className="mt-6 border-t border-b py-2">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                <p className="font-semibold text-gray-900"> € {totalSum}</p>
+                <p className="font-semibold text-gray-900">
+                  {" "}
+                  € {totalSum.toFixed(2)}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900">Shipping</p>
@@ -362,8 +365,7 @@ const Checkout = () => {
             <div className="mt-6 flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Total</p>
               <p className="text-2xl font-semibold text-gray-900">
-                {" "}
-                € {totalSum + shippingCost}
+                € {(totalSum + shippingCost).toFixed(2)}
               </p>
             </div>
           </div>
