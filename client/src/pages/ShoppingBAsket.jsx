@@ -89,7 +89,7 @@ const ShoppingBasket = () => {
               <div className=" px-4 py-6 m-auto mt-6">
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <p>Subtotal</p>
-                  <p>{totalSum} €</p>
+                  <p>{totalSum.toFixed(2)} €</p>
                 </div>
                 <p className="mt-2 text-sm text-gray-500 underline">
                   Shipping and taxes calculated at checkout.

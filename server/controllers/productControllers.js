@@ -75,10 +75,12 @@ export const filterProductsByCategory = async (req, res) => {
 //find and filter by Price
 export const filterProductsByPrice = async (req, res) => {
   try {
-    const { minPrice, maxPrice } = req.body;
+    const { minPrice, maxPrice } = req.query;
 
     const minPriceNumber = parseInt(minPrice);
     const maxPriceNumber = parseInt(maxPrice);
+
+    console.log("backend prices==>", minPriceNumber, maxPriceNumber);
 
     const products = await Product.find({
       price: { $gte: minPriceNumber, $lte: maxPriceNumber },

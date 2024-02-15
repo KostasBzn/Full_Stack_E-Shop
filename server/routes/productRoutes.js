@@ -31,7 +31,7 @@ productRoutes.put(
   updateProduct
 );
 productRoutes.get("/category/:selectedCategory?", filterProductsByCategory);
-productRoutes.post("/filterprice", filterProductsByPrice);
+productRoutes.get("/filterprice", filterProductsByPrice);
 productRoutes.put("/updatequantities", updateQuantities);
 
 export default productRoutes;

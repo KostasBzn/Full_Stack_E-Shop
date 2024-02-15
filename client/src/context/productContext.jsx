@@ -82,10 +82,10 @@ const ProductContextProvider = ({ children }) => {
   //filter product by price
   const filterProductsByPrice = async (minPrice, maxPrice) => {
     try {
-      const response = await axios.post(baseURL + `/products/filterprice`, {
-        minPrice,
-        maxPrice,
-      });
+      const response = await axios.get(
+        baseURL +
+          `/products/filterprice?minPrice=${minPrice}&maxPrice=${maxPrice}`
+      );
 
       if (response.data.success) {
         setAllProducts(response.data.products);
