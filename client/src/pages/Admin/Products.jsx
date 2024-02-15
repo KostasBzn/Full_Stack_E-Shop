@@ -3,7 +3,7 @@ import { ProductContext } from "../../context/productContext";
 import { useNavigate } from "react-router-dom";
 
 const Products = () => {
-  const { allProducts, deleteProduct, findProduct, selectedProduct } =
+  const { allProducts, deleteProduct, findProduct } =
     useContext(ProductContext);
   const baseURL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();

@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/userContext";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../context/productContext";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { user, logout } = useContext(UserContext);
+  const { basket } = useContext(ProductContext);
 
   const baseURL = import.meta.env.VITE_BASE_URL;
 
@@ -15,6 +17,11 @@ const Navbar = () => {
   const handleLogout = () => {
     logout();
   };
+
+  const basketTotalQuantity = basket?.reduce(
+    (total, product) => total + product?.basketQuantity,
+    0
+  );
 
   return (
     <>
@@ -41,7 +48,7 @@ const Navbar = () => {
             )}
           </button>
           {isDropdownOpen && (
-            <div className="absolute left-10 top-10 mt-2 w-48 bg-white rounded-md shadow-lg">
+            <div className="absolute  left-10 top-10 mt-2 w-48 bg-white rounded-md shadow-lg">
               <Link
                 onClick={toggleDropdown}
                 className="block px-4 py-2 text-sm text-gray-700 w-full text-left"
@@ -73,9 +80,13 @@ const Navbar = () => {
         </div>
         <div className="flex items-center">
           <div className="mr-4 cursor-pointer hover:text-gray-300">
-            <i className="fa-solid fa-cart-shopping text-white"></i>
+            <Link to={"/shoppingbasket"}>
+              <i className="fa-solid fa-cart-shopping text-white"></i>
+            </Link>
           </div>
-          <p className="text-white font-300">{2}</p>
+          <p className="text-white font-300">
+            ({basketTotalQuantity !== undefined ? basketTotalQuantity : "0"})
+          </p>
         </div>
       </nav>
     </>

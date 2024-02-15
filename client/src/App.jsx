@@ -22,6 +22,9 @@ import { AdminContext } from "./context/adminContext";
 import AdminNavbar from "./components/AdminNavbar";
 import EditProduct from "./pages/Admin/EditProductForm";
 
+import Checkout from "./pages/Checkout";
+import ShoppingBasket from "./pages/ShoppingBasket";
+
 function App() {
   const { user } = useContext(UserContext);
   const { admin } = useContext(AdminContext);
@@ -47,6 +50,8 @@ function App() {
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="/admin/products" element={<Products />} />
         <Route path="/admin/editproduct" element={<EditProduct />} />
+        <Route path="/shoppingbasket" element={<ShoppingBasket />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       {user && !admin && <Footer />}
     </>
