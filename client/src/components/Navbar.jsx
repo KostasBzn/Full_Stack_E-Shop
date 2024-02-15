@@ -40,7 +40,7 @@ const Navbar = () => {
               />
             ) : (
               <img
-                src="../public/vite.svg"
+                src="../public/tree-736885_1280.jpg"
                 alt="profpic"
                 className="w-12 h-12 bg-gray-300 object-cover"
                 style={{ borderRadius: "50%" }}
