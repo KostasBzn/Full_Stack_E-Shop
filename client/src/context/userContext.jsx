@@ -55,7 +55,9 @@ const UserContextProvider = ({ children }) => {
       localStorage.setItem("token", response.data.token);
       if (response.data.success) {
         setUser(response.data.user);
-        navigate("/home");
+
+        //navigate("/home");
+        window.location.replace("/home");
       }
       setErrors(null);
       //window.location.replace("/home");
@@ -175,7 +177,7 @@ const UserContextProvider = ({ children }) => {
       try {
         const response = await axios.get(baseURL + `/users/loggeduser`);
         setUser(response.data.user);
-        //console.log("Fetched user:", response.data);
+        console.log("Fetched user:", response.data);
       } catch (error) {
         console.error(error);
         localStorage.removeItem("token");
