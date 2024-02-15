@@ -63,6 +63,8 @@ const Checkout = () => {
     0
   );
 
+  const finalTotal = totalSum + shippingCost;
+
   const handlePlaceOrder = (e) => {
     e.preventDefault();
     updateProductsQuantities(basket);
@@ -365,7 +367,8 @@ const Checkout = () => {
             <div className="mt-6 flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Total</p>
               <p className="text-2xl font-semibold text-gray-900">
-                € {(totalSum + shippingCost).toFixed(2)}
+                {" "}
+                € {finalTotal}
               </p>
             </div>
           </div>
