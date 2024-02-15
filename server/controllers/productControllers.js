@@ -73,31 +73,6 @@ export const filterProductsByCategory = async (req, res) => {
 };
 
 //find and filter by Price
-export const filterProductsByPrice1 = async (req, res) => {
-  try {
-    const { minPrice, maxPrice } = req.body;
-
-    const minPriceNumber = parseInt(minPrice);
-    const maxPriceNumber = parseInt(maxPrice);
-
-    const products = await Product.find({
-      price: { $gte: minPriceNumber, $lte: maxPriceNumber },
-    });
-
-    if (products.length === 0) {
-      return res.send({
-        success: false,
-        message: "No products found within the specified price range",
-      });
-    }
-
-    res.send({ success: true, products });
-  } catch (error) {
-    console.error("Error finding the product by price", error.message);
-    res.send({ success: false, error: error.message });
-  }
-};
-
 export const filterProductsByPrice = async (req, res) => {
   try {
     const { minPrice, maxPrice } = req.query;
