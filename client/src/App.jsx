@@ -23,7 +23,7 @@ import AdminNavbar from "./components/AdminNavbar";
 import EditProduct from "./pages/Admin/EditProductForm";
 
 import Checkout from "./pages/Checkout";
-import ShoppingBasket from "./pages/ShoppingBasket.jsx";
+import ShoppingBasket from "./pages/ShoppingBasket";
 
 function App() {
   const { user } = useContext(UserContext);
