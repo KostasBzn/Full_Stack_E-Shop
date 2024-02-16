@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../context/userContext";
 import ShopProducts from "../components/ShopProducts";
 import CategorySearch from "../components/CategorySearch";
 
 const Home = () => {
-  const { user } = useContext(UserContext);
+  const { user, loggedUser } = useContext(UserContext);
 
   return (
     <>

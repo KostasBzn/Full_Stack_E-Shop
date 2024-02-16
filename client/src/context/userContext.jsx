@@ -53,13 +53,15 @@ const UserContextProvider = ({ children }) => {
         password,
       });
       localStorage.setItem("token", response.data.token);
+
       if (response.data.success) {
         setUser(response.data.user);
-
-        //navigate("/home");
-        window.location.replace("/home");
+        //await loggedUser();
+        navigate("/home");
+        //window.location.replace("/home");
       }
       setErrors(null);
+
       //window.location.replace("/home");
     } catch (error) {
       console.error("Error", error);
@@ -103,7 +105,7 @@ const UserContextProvider = ({ children }) => {
 
       if (response.data.success) {
         setUpdatedUser(response.data.user);
-        loggedUser();
+        await loggedUser();
         //navigate("/app");
         console.log("User updated successfully!", response.data.user);
       } else {
@@ -173,6 +175,7 @@ const UserContextProvider = ({ children }) => {
   //logged user
   const loggedUser = async () => {
     const token = localStorage.getItem("token");
+
     if (token) {
       try {
         const response = await axios.get(baseURL + `/users/loggeduser`);
