@@ -9,4 +9,4 @@
 
 --A beginner project from me doing my first steps in full stack applications--
 
-Click [here](https://kostasbzn.github.io/Movie_explorer_beginnerEdition/) to visit the website.
+Click [here](https://kostasbzn.github.io/Movie_explorer_beginnerEdition/) to visit the website
