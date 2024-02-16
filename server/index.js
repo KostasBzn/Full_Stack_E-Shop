@@ -10,7 +10,10 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(express.json());
-app.use(cors());
+const corsOptions = {
+  origin: "https://full-stack-e-shop-client.vercel.app",
+};
+app.use(cors(corsOptions));
 
 connectDB();
 app.use("/uploads", express.static("uploads"));
