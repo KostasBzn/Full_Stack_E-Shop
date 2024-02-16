@@ -137,7 +137,7 @@ const ProductContextProvider = ({ children }) => {
       const response = await axios.get(baseURL + `/products/getall`);
 
       setAllProducts(response.data.allProducts);
-      console.log("fetch all products:", response.data.allProducts);
+      //console.log("fetch all products:", response.data.allProducts);
     } catch (error) {
       console.error("Error fetching the products", error);
     }
@@ -230,7 +230,7 @@ const ProductContextProvider = ({ children }) => {
       setBasket([]);
     } else setBasket(basketArray);
   };
-  console.log("basket local storage==>", basket);
+  //console.log("basket local storage==>", basket);
 
   /* quantity button plus*/
   const quantityIncrease = (productId) => {
