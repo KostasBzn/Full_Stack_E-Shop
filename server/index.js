@@ -13,7 +13,7 @@ app.use(express.json());
 const corsOptions = {
   origin: "https://full-stack-e-shop-client.vercel.app",
 };
-app.use(cors());
+app.use(cors(corsOptions));
 
 connectDB();
 app.use("/uploads", express.static("uploads"));
