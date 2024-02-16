@@ -21,9 +21,8 @@ import Products from "./pages/Admin/Products";
 import { AdminContext } from "./context/adminContext";
 import AdminNavbar from "./components/AdminNavbar";
 import EditProduct from "./pages/Admin/EditProductForm";
-
-import Checkout from "./pages/Checkout";
 import ShoppingBasket from "./pages/ShoppingBasket";
+import Checkout from "./pages/Checkout";
 
 function App() {
   const { user } = useContext(UserContext);
