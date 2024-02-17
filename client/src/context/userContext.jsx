@@ -104,8 +104,8 @@ const UserContextProvider = ({ children }) => {
       );
 
       if (response.data.success) {
-        setUpdatedUser(response.data.user);
-        await loggedUser();
+        setUser(response.data.user);
+        //await loggedUser();
         //navigate("/app");
         console.log("User updated successfully!", response.data.user);
       } else {

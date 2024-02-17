@@ -59,8 +59,8 @@ const AddressUpdate = () => {
     };
 
     updateUser(user._id, { address: updatedData });
-    window.location.replace("/userprofile");
-    //navigate("/userprofile");
+    //window.location.replace("/userprofile");
+    navigate("/userprofile");
   };
 
   return (
