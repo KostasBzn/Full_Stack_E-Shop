@@ -220,7 +220,7 @@ export const forgotPass = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTER_KEY, {
       expiresIn: "1h",
     }); // generate a one hour validity token
-    console.log("token:", token);
+    //console.log("token:", token);
 
     changePassVerification(token, user.email);
 
