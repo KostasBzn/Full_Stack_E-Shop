@@ -132,11 +132,9 @@ const UserContextProvider = ({ children }) => {
       const response = await axios.post(baseURL + `/users/forgotpass`, {
         email,
       });
-      console.log("succsess", response.data.success);
+
       if (response.data.success) {
         setErrors(null);
-
-        console.log("data", response.data);
 
         alert(
           "Check your email to find the next step, to change your password"
