@@ -154,6 +154,8 @@ const UserContextProvider = ({ children }) => {
   };
 
   const changePass = async (password, token) => {
+    console.log("pass", password);
+    console.log("token", token);
     try {
       const response = await axios.patch(baseURL + "/users/changepass", {
         password,
