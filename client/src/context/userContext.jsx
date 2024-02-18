@@ -161,7 +161,6 @@ const UserContextProvider = ({ children }) => {
       });
 
       if (response.data.success) {
-        console.log("data", response.data);
         alert(
           "Your password changed successfully. Soon you will be redirected to the login page"
         );
