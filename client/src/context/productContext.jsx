@@ -22,10 +22,14 @@ const ProductContextProvider = ({ children }) => {
 
       if (response.data.success) {
         console.log("New Product==>>", response.data.newProduct);
+        const newProduct = response.data.newProduct;
+        updatedProductsArray = [...allProducts, newProduct];
+        setAllProducts(updatedProductsArray);
       }
       setErrors(null);
+
       alert("Product added successfully");
-      getAllProducts();
+      //getAllProducts();
       //window.location.replace("/signedin");
       //window.location.reload();
     } catch (error) {
