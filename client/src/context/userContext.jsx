@@ -154,8 +154,6 @@ const UserContextProvider = ({ children }) => {
   };
 
   const changePass = async (password, token) => {
-    console.log("pass", password);
-    console.log("token", token);
     try {
       const response = await axios.patch(baseURL + "/users/changepass", {
         password,
@@ -163,6 +161,7 @@ const UserContextProvider = ({ children }) => {
       });
 
       if (response.data.success) {
+        console.log("data", response.data);
         alert(
           "Your password changed successfully. Soon you will be redirected to the login page"
         );

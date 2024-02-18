@@ -249,7 +249,7 @@ export const changePass = async (req, res) => {
     );
     console.log("🚀 ~ user change pass:", user);
 
-    res.send({ success: true });
+    res.send({ success: true, token, user });
   } catch (error) {
     console.log("🚀 ~ error in changePass:", error.message);
 
