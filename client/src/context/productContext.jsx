@@ -124,8 +124,13 @@ const ProductContextProvider = ({ children }) => {
       );
 
       if (response.data.success) {
+        //instead of fetching again all products i Update the products localy first
+        const updatedProductsArray = allProducts.map((product) =>
+          product._id === productId ? response.data.product : product
+        );
+        setAllProducts(updatedProductsArray);
         navigate("/admin/products");
-        getAllProducts();
+        //getAllProducts();
         console.log("Product updated successfully!", response.data.product);
       } else {
         console.error("Error updating the product", response.data.message);
