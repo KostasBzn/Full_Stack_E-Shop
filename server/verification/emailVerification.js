@@ -21,7 +21,7 @@ export const emailVerification = async (token, email) => {
     html: `
     <h3>Welcome to our e-shop app</h3>
     <p>To verify your email please click on the following link:</p>
-    <a href="http://localhost:5173/emailconfirm/${token}">verify my email</a>`,
+    <a href="https://full-stack-e-shop-client.vercel.app/emailconfirm/${token}">verify my email</a>`,
   });
 
   console.log("Message sent: %s", info.messageId);
