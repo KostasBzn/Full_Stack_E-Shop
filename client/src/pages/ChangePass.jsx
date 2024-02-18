@@ -20,9 +20,7 @@ export default function ChangePass() {
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPass === newPassRepeat) {
-      console.log("pass", newPass);
-      console.log("token", token);
-      //changePass(newPass, token);
+      changePass(newPass, token);
       setNewPass("");
       setNewPassRepeat("");
     } else alert("Password inputs don't match");
