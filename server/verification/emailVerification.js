@@ -36,7 +36,7 @@ export const changePassVerification = async (token, email) => {
   const info = await transporter.sendMail({
     from: '"Kostas" <kosb999663@gmail.com>', // sender address
     to: email, // list of receivers
-    subject: "Instructions to change your password", // Subject line
+    subject: "Password change", // Subject line
     text: "Follow the liink to change your password", // plain text body
     html: `
     <h3>Welcome to our e-shop app</h3>
