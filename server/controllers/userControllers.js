@@ -248,6 +248,11 @@ export const changePass = async (req, res) => {
       { new: true }
     );
     console.log("🚀 ~ user change pass:", user);
+    if (!user)
+      return res.send({
+        success: false,
+        error: "Error updating the password, pleas repeat the process",
+      });
 
     res.send({ success: true, token, user });
   } catch (error) {
