@@ -224,7 +224,7 @@ export const forgotPass = async (req, res) => {
 
     changePassVerification(token, user.email);
 
-    res.send({ success: true });
+    res.send({ success: true }, user, token);
   } catch (error) {
     console.log("Error in forgotPass:", error.message);
 

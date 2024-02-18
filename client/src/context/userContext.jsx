@@ -135,9 +135,12 @@ const UserContextProvider = ({ children }) => {
 
       if (response.data.success) {
         setErrors(null);
+        console.log("user", response.data.user);
+        console.log("token", response.data.token);
         alert(
           "Check your email to find the next step, to change your password"
         );
+
         navigate("/signin");
       }
     } catch (error) {
