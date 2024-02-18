@@ -243,7 +243,7 @@ export const changePass = async (req, res) => {
     //req.body.password = hashedpassword;
 
     const user = await User.findByIdAndUpdate(
-      token.id,
+      token.userId,
       { password: hashedpassword },
       { new: true }
     );
