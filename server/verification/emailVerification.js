@@ -41,7 +41,7 @@ export const changePassVerification = async (token, email) => {
     html: `
     <h3>Welcome to our e-shop app</h3>
     <p>To change your password please click on the following link:</p>
-    <a href="http://localhost:5173/changepass/${token}">Change password</a>`,
+    <a href="https://full-stack-e-shop-client.vercel.app/changepass/${token}">Change password</a>`,
   });
 
   console.log("Message sent: %s", info.messageId);
