@@ -33,5 +33,5 @@ Check out the live version of the project here:
 - **User Dashboard**: Users can manage their profile, update shipping details, and view or modify their shopping cart.
 - **Checkout System**: Users can complete their purchases and automatically update product quantities in the system.
 
-*This is a full-stack e-commerce app project developed to showcase skills in frontend and backend development. Feedback and suggestions are welcome!*
+*This is a full-stack e-commerce app project developed to showcase skills in frontend and backend development.*
 
